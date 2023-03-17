@@ -1,15 +1,10 @@
 package mantis.tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import mantis.pages.MantisSite;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class LoginTests extends BaseTest{
+public class LoginTests extends BaseTest {
 
     private MantisSite mantisSite;
 
@@ -29,9 +24,25 @@ public class LoginTests extends BaseTest{
     public void successfulLoginTest() throws InterruptedException {
         mantisSite = new MantisSite(driver);
         mantisSite.login("admin", "admin20");
-
         String currentUserName = mantisSite.getMainPage().getUserName();
         Assertions.assertEquals("admin", currentUserName);
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void negativelLoginTest() throws InterruptedException {
+        mantisSite = new MantisSite(driver);
+        mantisSite.getLoginPage().login("admin");
+        mantisSite.getPasswordPage().login("admin25");
+
+        String textError = mantisSite.getLoginPage().getTextErrorField();
+        if (textError.contains("Your")) {
+            Assertions.assertEquals("Your account may be blocked, or the login " +
+                    "name/password you entered is incorrect.", textError);
+        } else {
+            Assertions.assertEquals("Возможно, ваша учетная запись заблокирована, " +
+                    "или введенное регистрационное имя/пароль неправильны.", textError);
+        }
         Thread.sleep(1000);
     }
 }

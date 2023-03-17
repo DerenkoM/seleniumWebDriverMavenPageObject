@@ -16,6 +16,9 @@ public class MainPage {
     @FindBy(css = "a[href='/mantisbt/view_all_bug_page.php']")
     private WebElement viewIssuesPageButton;
 
+    @FindBy(css = "a[href='/mantisbt/bug_report_page.php']")
+    private WebElement reportIssuesButton;
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 30, 500);
@@ -28,5 +31,9 @@ public class MainPage {
 
     public void goToViewIssuesPage() {
         viewIssuesPageButton.click();
+    }
+
+    public void goToReportIssuesPage() {
+        reportIssuesButton.click();
     }
 }

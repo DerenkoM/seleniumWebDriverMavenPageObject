@@ -14,6 +14,9 @@ public class LoginPage {
     @FindBy(css = "#username")
     private WebElement loginField;
 
+    @FindBy(css = ".alert-danger")
+    private WebElement errorField;
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 30, 500);
@@ -25,5 +28,9 @@ public class LoginPage {
 
         loginField.sendKeys(login);
         loginField.sendKeys(Keys.ENTER);
+    }
+
+    public String getTextErrorField(){
+        return errorField.getText();
     }
 }

@@ -17,7 +17,6 @@ public class PasswordPage {
     public PasswordPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 30, 500);
-
         PageFactory.initElements(driver, this);
     }
 
