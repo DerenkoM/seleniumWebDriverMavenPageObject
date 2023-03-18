@@ -21,9 +21,9 @@ public class ReportIssueTest extends BaseTest {
         Thread.sleep(3000);
         WebElement summaryLabel = driver.findElement(By.cssSelector("label[for = 'summary']")); //делала скролл, тк у меня не видно было вводимые поля
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", summaryLabel);
-        mantisSite.getReportIssuePage().getSummaryText(summaryAdd);
+        mantisSite.getReportIssuePage().sendSummaryText(summaryAdd);
         Thread.sleep(3000);
-        mantisSite.getReportIssuePage().getDescriptionText(descriptionAdd);
+        mantisSite.getReportIssuePage().sendDescriptionText(descriptionAdd);
         Thread.sleep(3000);
         mantisSite.getReportIssuePage().submitNewIssue();
 

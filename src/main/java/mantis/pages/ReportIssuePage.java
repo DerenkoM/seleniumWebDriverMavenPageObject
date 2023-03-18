@@ -31,11 +31,11 @@ public class ReportIssuePage {
     @FindBy(css = " [value = 'Delete Issues']")
     private WebElement buttonDeleteIssue;//
 
-    public void getSummaryText(String textSummary) {
+    public void sendSummaryText(String textSummary) {
         summary.sendKeys(textSummary);
     }
 
-    public void getDescriptionText(String textDescription) {
+    public void sendDescriptionText(String textDescription) {
         description.sendKeys(textDescription);
     }
 

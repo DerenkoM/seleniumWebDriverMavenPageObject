@@ -25,7 +25,7 @@ public class ViewIssuesPage {
     private WebElement summaryIssue;
 
     @FindBy(css = "#buglist tbody tr:first-child td:nth-child(4)")
-    private WebElement FirstIssue;
+    private WebElement firstIssue;
 
     public int getCountIssues() {
         return issues.size();
@@ -36,6 +36,6 @@ public class ViewIssuesPage {
     }
 
     public void choiceFirstIssue() {
-        FirstIssue.click();
+        firstIssue.click();
     }
 }
