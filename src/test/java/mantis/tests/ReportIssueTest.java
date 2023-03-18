@@ -14,14 +14,16 @@ public class ReportIssueTest extends BaseTest {
     public void checkReportAndDeleteIssue() throws InterruptedException {
         mantisSite = new MantisSite(driver);
         mantisSite.login("admin", "admin20");
+        String summaryAdd = "New report test";
+        String descriptionAdd = "Description of new report";
 
         mantisSite.getMainPage().goToReportIssuesPage();
         Thread.sleep(3000);
         WebElement summaryLabel = driver.findElement(By.cssSelector("label[for = 'summary']")); //делала скролл, тк у меня не видно было вводимые поля
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", summaryLabel);
-        mantisSite.getReportIssuePage().sendSummaryText();
+        mantisSite.getReportIssuePage().getSummaryText(summaryAdd);
         Thread.sleep(3000);
-        mantisSite.getReportIssuePage().sendDescriptionText();
+        mantisSite.getReportIssuePage().getDescriptionText(descriptionAdd);
         Thread.sleep(3000);
         mantisSite.getReportIssuePage().submitNewIssue();
 
@@ -31,17 +33,15 @@ public class ReportIssueTest extends BaseTest {
         softAssert.assertThat(resultText).isEqualTo("Operation successful.");
         Thread.sleep(5000);
 
-        String actualSummaryText = mantisSite.getViewIssuesPage().getSummaryOfFirstIssue();
-        softAssert.assertThat(actualSummaryText).isEqualTo(mantisSite.getReportIssuePage().getSummaryText()); //проверка верхней строчки
+        String actualSummaryText = mantisSite.getViewIssuesPage().getSummaryFirstIssue();
+        softAssert.assertThat(actualSummaryText).isEqualTo(summaryAdd); //проверка верхней строчки
 
         mantisSite.getViewIssuesPage().choiceFirstIssue();
-        WebElement buttonDelete = driver.findElement(By.cssSelector("[value = 'Delete']")); //не описывала поле в классе, тк используется разово
-        buttonDelete.click();
-        WebElement buttonDeleteIssues = driver.findElement(By.cssSelector("[value = 'Delete Issues']")); //не описывала поле в классе, тк используется разово
-        buttonDeleteIssues.click();
+        mantisSite.getReportIssuePage().delete();
+        mantisSite.getReportIssuePage().deleteIssue();
 
-        String actualSummaryText1 = mantisSite.getViewIssuesPage().getSummaryOfFirstIssue();
-        softAssert.assertThat(actualSummaryText1).isNotEqualTo(mantisSite.getReportIssuePage().getSummaryText());
+        String actualSummaryText1 = mantisSite.getViewIssuesPage().getSummaryFirstIssue();
+        softAssert.assertThat(actualSummaryText1).isNotEqualTo(summaryAdd);
 
         softAssert.assertThat(driver.getCurrentUrl()).isEqualTo("https://academ-it.ru/mantisbt/view_all_bug_page.php");
 

@@ -22,20 +22,20 @@ public class ViewIssuesPage {
     private List<WebElement> issues;
 
     @FindBy(css = "#buglist tbody tr:first-child td:nth-child(11)")
-    private WebElement summaryOfIssues;
+    private WebElement summaryIssue;
 
     @FindBy(css = "#buglist tbody tr:first-child td:nth-child(4)")
-    private WebElement FirstIssues;
+    private WebElement FirstIssue;
 
     public int getCountIssues() {
         return issues.size();
     }
 
-    public String getSummaryOfFirstIssue() {
-        return summaryOfIssues.getText();
+    public String getSummaryFirstIssue() {
+        return summaryIssue.getText();
     }
 
     public void choiceFirstIssue() {
-        FirstIssues.click();
+        FirstIssue.click();
     }
 }

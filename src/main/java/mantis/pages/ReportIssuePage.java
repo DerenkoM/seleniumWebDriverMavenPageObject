@@ -9,13 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ReportIssuePage {
     private final WebDriver driver;
     private final WebDriverWait wait;
-    private String textSummary;
 
     public ReportIssuePage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 30, 500);
         PageFactory.initElements(driver, this);
-        this.textSummary = "New report test";
     }
 
     @FindBy(css = "#summary")
@@ -27,19 +25,29 @@ public class ReportIssuePage {
     @FindBy(css = "[type = 'submit']")
     private WebElement submitIssue;
 
-    public void sendSummaryText() {
+    @FindBy(css = "[value = 'Delete']")
+    private WebElement buttonDelete;
+
+    @FindBy(css = " [value = 'Delete Issues']")
+    private WebElement buttonDeleteIssue;//
+
+    public void getSummaryText(String textSummary) {
         summary.sendKeys(textSummary);
     }
 
-    public String getSummaryText() {
-        return textSummary;
-    }
-
-    public void sendDescriptionText() {
-        description.sendKeys("Description of new report");
+    public void getDescriptionText(String textDescription) {
+        description.sendKeys(textDescription);
     }
 
     public void submitNewIssue() {
         submitIssue.click();
+    }
+
+    public void delete() {
+        buttonDelete.click();
+    }
+
+    public void deleteIssue() {
+        buttonDeleteIssue.click();
     }
 }
